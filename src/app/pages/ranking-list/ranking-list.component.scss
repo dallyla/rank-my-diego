@@ -1,0 +1,110 @@
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.color{
+  color: white;
+}
+
+.list{
+  display: flex;
+  padding: 0rem;
+}
+
+.jst-left{
+  justify-content: left;
+}
+
+::ng-deep {
+
+  .p-orderlist {
+      .p-orderlist-controls {
+          display: none !important;
+
+      }
+
+      .p-orderlist-list {
+          border: none !important;
+          background-color: var(--s-bg) !important;
+
+          .p-orderlist-item {
+              padding: 0rem !important;
+              background-color: var(--s-bg) !important;
+          }
+      }
+  }
+
+  li.p-element.cdk-drag.p-orderlist-item {
+      border: 0.063rem solid var(--n-20) !important;
+      margin-bottom: 1rem;
+  }
+
+  .item-drag-btn {
+      width: 3rem;
+      height: auto;
+      background-color: var(--p-700);
+      @include flex-center;
+  }
+
+  .item-text {
+      @include flex-center;
+      font-size: var(--normal-size);
+  }
+
+  .dash-logo {
+      border-radius: 100%;
+      box-shadow: 0px 0px 4px 0px #00000040;
+      min-width: 2rem;
+      min-height: 2rem;
+  }
+
+  .cdk-drag-preview {
+      padding: 0rem !important;
+  }
+
+  .cdk-drag-placeholder {
+      padding: 0rem !important;
+  }
+
+  .img-logo {
+      position: relative;
+      width: 2rem;
+      height: 2rem;
+      margin: 0 auto;
+      pointer-events: none;
+      border-radius: 100%;
+  }
+
+  .p-listbox {
+    border: none;
+    box-shadow: none;
+  }
+
+  .p-listbox-list {
+    gap: 8px;
+  }
+
+  .p-listbox-option {
+    border: 1px solid oklch(0.928 0.006 264.531) !important;
+    border-radius: 15px;
+  }
+
+  .p-listbox .p-listbox-list .p-listbox-option.p-listbox-option-selected {
+    background: #dfecf9;
+  }
+
+  .p-listbox-list-container {
+    max-height: none !important;
+  }
+
+}
+
+.list-num {
+ font-size: 30px;
+ color: #767676;
+}
+

@@ -1,0 +1,40 @@
+
+
+
+<p-card>
+
+  <div class="my-5">
+    <p class="text-center text-2xl font-bold">Diego Martins Ranking List</p>
+    <p class="text-center text-sm text-gray-700">Ordene a lista das músicas da Diego de acordo com as suas favoritas</p>
+  </div>
+
+
+
+  <div class="flex justify-center px-1">
+    <div class="flex justify-center space-x-4">
+
+      <!-- Coluna com a lista ordenável -->
+      <!-- <div class="">
+        <app-order-list
+          [items]="songsList"
+          (emitItemClick)="showSpotifyPlayer($event)">
+        </app-order-list>
+      </div> -->
+
+
+       <!-- NOVO WRAPPER FLEXÍVEL -->
+      <div class="w-full overflow-visible">
+        <app-order-list
+          [items]="songsList"
+          (emitItemClick)="showSpotifyPlayer($event)">
+        </app-order-list>
+      </div>
+
+
+
+    </div>
+  </div>
+
+
+</p-card>
+

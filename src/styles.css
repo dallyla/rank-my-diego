@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+/* body, html {
+  background-color: #eee6ff;
+  height: 100%;
+  overflow-y: auto;
+
+}
+
+html {
+  height: 100%;
+  overflow-y: auto;
+} */
+
+html, body {
+  background-color: #eee6ff;
+  margin: 0;
+  padding: 0;
+  height: auto;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+

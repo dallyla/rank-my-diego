@@ -1,0 +1,76 @@
+::ng-deep .no-scroll {
+  max-height: none !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+:host {
+  display: block;
+  width: 100%;
+  overflow: visible;
+}
+
+.close-btn {
+  position: relative;
+  top: 83px;
+  left: -151px;
+}
+
+
+.main-container {
+  display: none;
+}
+
+.close-btn, .fa-circle-play {
+  pointer-events: all !important;
+}
+
+
+///////////* Borda padrão dos itens */
+::ng-deep {
+  .item {
+    border: 1px solid #d9d4f5; /* lilás muito suave */
+    border-radius: 15px;
+    background-color: #faf9ff; /* quase branco com toque lilás */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+
+  .item:hover {
+    background-color: #ede9ff; /* lilás clarinho */
+    border-color: #c4bcf0; /* lilás claro */
+    cursor: pointer;
+  }
+
+  .item.cdk-drag-preview {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    padding: 1rem; /* aplica padding nos 4 lados */
+    padding-left: 1.25rem; /* garante espaçamento extra na esquerda */
+    border-radius: 15px;
+
+    background-color: #e7e4ff;
+    border: 1px solid #b7b1e6;
+    box-shadow: 0 6px 16px rgba(196, 188, 240, 0.4);
+
+    .play-btn {
+      padding-left: 1.5rem;
+    }
+  }
+
+  .item.cdk-drag-preview > *:first-child {
+    margin-left: 1rem; /* força afastamento do primeiro filho (ex: número da música) */
+  }
+
+  .item.cdk-drag-placeholder {
+    background-color: #f5f3ff; /* lilás ultra claro */
+    border-color: #d7d2f9;
+    opacity: 0.7;
+  }
+
+  .play-btn {
+    color: #6C8CD5
+  }
+}
