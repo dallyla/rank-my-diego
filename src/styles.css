@@ -23,3 +23,24 @@ html, body {
   overflow-y: auto;
 }
 
+/* Fonte cinza para as mensagens */
+.p-toast-message {
+  color: #666666 !important;  /* cinza médio */
+  font-weight: 400;            /* peso normal, pode ajustar */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* ou sua fonte preferida */
+}
+
+/* Remove bordas e sombra das mensagens */
+.p-toast-message-content {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important; /* se quiser fundo transparente */
+}
+
+/* Opcional: remover sombra da toast container */
+.p-toast {
+  box-shadow: none !important;
+  border-radius: 0 !important; /* borda reta, sem arredondar */
+}
+
+

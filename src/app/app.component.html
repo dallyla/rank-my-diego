@@ -11,7 +11,7 @@
           <!-- Logo -->
           <div class="flex-shrink-0 flex items-center">
             <a routerLink="/" class="text-xl font-bold text-indigo-600 hover:text-indigo-800">
-              DM Ranking
+              Rank My Diego
             </a>
           </div>
 
@@ -36,8 +36,8 @@
               class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-indigo-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
               (click)="toggleMobileMenu()"
             >
-              <i *ngIf="!mobileMenuOpen" class="pi pi-bars text-xl"></i>
-              <i *ngIf="mobileMenuOpen" class="pi pi-times text-xl"></i>
+              <i *ngIf="!mobileMenuOpen" class="fa fa-bars text-xl"></i>
+              <i *ngIf="mobileMenuOpen" class="fa fa-times text-xl"></i>
             </button>
           </div>
         </div>
@@ -59,6 +59,7 @@
 
   </a>
   <section class="content p-2">
+    <p-toast position="center"></p-toast>
     <router-outlet></router-outlet>
   </section>
 </main>

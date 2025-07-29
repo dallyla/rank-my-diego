@@ -5,6 +5,6 @@ export const routes: Routes = [
   {
     path: '',
     component: RankingListComponent,
-    title: 'DM Ranking',
+    title: 'Rank My Diego',
   },
 ];

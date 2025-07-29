@@ -26,6 +26,7 @@
       <div class="w-full overflow-visible">
         <app-order-list
           [items]="songsList"
+          [loading]="loading"
           (emitItemClick)="showSpotifyPlayer($event)">
         </app-order-list>
       </div>

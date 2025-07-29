@@ -5,7 +5,8 @@ import { map, switchMap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class SpotifyService {
-  private proxyUrl = 'http://localhost:3000';
+  private proxyUrl = 'https://rank-my-diego-backend.onrender.com';
+
   token!: any;
 
   constructor(private http: HttpClient) {}

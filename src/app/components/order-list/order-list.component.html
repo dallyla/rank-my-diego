@@ -1,3 +1,31 @@
+<!-- Skeleton -->
+<div *ngIf="loading" class="flex flex-col gap-4">
+  <div *ngFor="let n of [1,2,3,4,5,6,7,8,9,10,11,12,13]" class="rounded-md p-4 shadow-md bg-white flex flex-col gap-2 animate-pulse">
+    <div class="flex items-center justify-between gap-4">
+      <div class="w-1/12 text-center font-semibold">
+        <p-skeleton width="1rem" height="1rem"></p-skeleton>
+      </div>
+
+      <div class="flex-1 flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-gray-300">
+          <p-skeleton shape="circle" width="40px" height="40px"></p-skeleton>
+        </div>
+        <p-skeleton width="150px" height="1.2rem"></p-skeleton>
+      </div>
+
+      <div class="shrink-0 w-8 text-right">
+        <p-skeleton width="24px" height="24px"></p-skeleton>
+      </div>
+    </div>
+
+    <!-- <div class="mt-2">
+      <p-skeleton width="100%" height="200px" [style]="{ 'border-radius': '12px' }"></p-skeleton>
+    </div> -->
+  </div>
+</div>
+
+<!-- Lista real -->
+
 <div cdkDropList
      [cdkDropListData]="items"
      (cdkDropListDropped)="onDrop($event)"
@@ -36,6 +64,7 @@
 
     <!-- Player -->
     <div *ngIf="showPlayer && itemClickedId === item.id" class="mt-2">
+      <p-skeleton *ngIf="iframeLoading" width="100%" height="200px" [style]="{ 'border-radius': '12px' }"></p-skeleton>
       <iframe
         [src]="getSpotifyEmbedUrl(item.albumId)"
         width="100%"
@@ -44,6 +73,7 @@
         style="border-radius:12px"
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
         loading="lazy"
+        (load)="onIframeLoad()"
       ></iframe>
     </div>
   </div>
