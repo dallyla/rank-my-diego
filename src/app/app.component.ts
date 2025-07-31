@@ -1,14 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
-import { MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { PrimeNG } from 'primeng/config';
 import { ToastModule } from 'primeng/toast';
+import { MenuModule } from 'primeng/menu';
+import { ButtonModule } from 'primeng/button';
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterModule, CommonModule, ToastModule],
+  imports: [RouterOutlet, RouterModule, CommonModule, ToastModule, MenuModule, ButtonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -16,6 +18,7 @@ export class AppComponent {
   protected readonly title = signal('dm-ranking');
   value = ''
   mobileMenuOpen = false;
+  items: MenuItem[] | undefined;
 
   constructor(
     private primeng: PrimeNG,
@@ -24,6 +27,23 @@ export class AppComponent {
 
   ngOnInit() {
      this.primeng.ripple.set(true);
+     this.items = [
+      {
+        label: 'Diego Martins',
+        icon: 'fa fa-music',
+        routerLink: '/diego-martins'
+      },
+      {
+        label: 'Sobre o app',
+        icon: 'fa fa-mobile-screen',
+        routerLink: '/sobre'
+      },
+      {
+        label: 'Início',
+        icon: 'fa fa-house',
+        routerLink: '/'
+      }
+    ];
   }
 
   toggleMobileMenu() {

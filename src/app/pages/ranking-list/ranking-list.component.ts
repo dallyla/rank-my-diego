@@ -4,6 +4,8 @@ import { CardModule } from 'primeng/card';
 import { SpotifyService } from '../../services/spotify.service';
 import { CommonModule } from '@angular/common';
 import { MessageService } from 'primeng/api';
+import { Button } from "primeng/button";
+
 
 @Component({
   selector: 'app-ranking-list',
@@ -78,7 +80,5 @@ export class RankingListComponent implements OnInit {
     });
 
   }
-
-
 
 }

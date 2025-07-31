@@ -73,4 +73,39 @@
   .play-btn {
     color: #6C8CD5
   }
+
+  .container-principal {
+    background-color: #ffff9f;
+    border-radius: 10px;
+    padding: 10px;
+  }
+
+
+  /* por padrão mostra os botões */
+.no-print {
+  display: block;
+}
+
+/* quando estiver em modo de captura */
+.capture-mode .no-print {
+  display: none !important;
+}
+
+.capture-mode {
+  overflow: visible !important;
+  max-height: none !important;
+  gap: 5px;
+  .cdk-drag.cdk-drag-handle.rounded-md.p-4.shadow-md.bg-white.item {
+    padding: 5px 25px !important;
+  }
+  .truncate {
+    overflow: visible !important;
+  }
+
+  .container-principal {
+    width: 700px;
+    background-color: #6C8CD5;
+    border-radius: 0px !important;
+  }
+}
 }

@@ -43,4 +43,14 @@ html, body {
   border-radius: 0 !important; /* borda reta, sem arredondar */
 }
 
+ .custom-menu .p-button {
+  background-color: #6C8CD5 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 0.375rem !important;
+}
+
+.custom-menu .p-button:hover {
+  background-color: #5A77B8 !important;
+}
 

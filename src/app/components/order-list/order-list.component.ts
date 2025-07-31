@@ -3,25 +3,34 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { SkeletonModule } from 'primeng/skeleton';
+import { ButtonModule } from 'primeng/button';
+import html2canvas from 'html2canvas';
+import { ImageService } from '../../services/image.service';
+
 
 @Component({
   selector: 'app-order-list',
   templateUrl: './order-list.component.html',
   styleUrls: ['./order-list.component.scss'],
-  imports: [CommonModule, DragDropModule, SkeletonModule]
+  imports: [CommonModule, DragDropModule, SkeletonModule, ButtonModule],
 })
 export class OrderListComponent {
   @Input() items: any[] = [];
   @Output() emitNewOrder = new EventEmitter<any[]>();
   @Output() emitItemClick = new EventEmitter<any>();
   @Input() loading = false;
+  fabOpen = false;
 
   showPlayer = false;
   itemClickedId!: string | number;
   iframeLoading = false;
   iframeUrls: { [albumId: string]: SafeResourceUrl } = {};
+  textoTweet = "🎧 Meu Ranking das músicas da Diego Martins já tá pronto! 🔥✨ #RankMyDiego #DiegoMartins";
 
-  constructor(private sanitizer: DomSanitizer) {}
+  constructor(
+    private sanitizer: DomSanitizer,
+    private imageService: ImageService
+  ) {}
 
   emitPlayerClick(item: any, action: 'play' | 'close') {
     if (action === 'close' || this.itemClickedId === item.id) {
@@ -40,6 +49,7 @@ export class OrderListComponent {
   }
 
   getSpotifyEmbedUrl(albumId: string): SafeResourceUrl {
+
     if (!this.iframeUrls[albumId]) {
       const url = `https://open.spotify.com/embed/album/${albumId}`;
       this.iframeUrls[albumId] = this.sanitizer.bypassSecurityTrustResourceUrl(url);
@@ -57,4 +67,41 @@ export class OrderListComponent {
       this.iframeLoading = false;
     }, 500); // delay de 500ms para ver o skeleton
   }
+
+  async capturarImagem() {
+    const container = document.getElementById('ranking-compartilhavel');
+    if (!container) return;
+
+    // Aguarda o carregamento de todas as imagens
+    const imagens = Array.from(container.getElementsByTagName('img'));
+    await Promise.all(imagens.map(img => {
+      if (img.complete) return Promise.resolve();
+      return new Promise<void>((resolve) => {
+        img.onload = () => resolve();
+        img.onerror = () => resolve(); // mesmo se der erro, continua
+      });
+    }));
+
+    // Aplica estilo para esconder os botões (opcional)
+    container.classList.add('capture-mode');
+
+    html2canvas(container, {
+      useCORS: true,      // Permite baixar imagens externas
+      allowTaint: false,  // Bloqueia imagens "sujas" com cookies
+      scale: 2,           // Aumenta qualidade
+      backgroundColor: '#ffff9f'
+    }).then(canvas => {
+      container.classList.remove('capture-mode');
+
+      const link = document.createElement('a');
+      link.href = canvas.toDataURL('image/png');
+      link.download = 'meu-ranking.png';
+      link.click();
+    });
+  }
+
+  compartilharNoTwittwer() {
+    this.imageService.capturarEnviarECompartilhar('ranking-compartilhavel', this.textoTweet);
+  }
+
 }

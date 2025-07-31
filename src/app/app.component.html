@@ -1,11 +1,11 @@
 <main>
-  <a [routerLink]="['/']">
-    <!-- <header class="brand-name">
+  <a >
+    <!-- <header [routerLink]="['/']" class="brand-name">
       <img class="brand-logo" src="/assets/logo.svg" alt="logo" aria-hidden="true" />
     </header> -->
 
-    <header class="bg-white shadow-md mb-5">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header class="bg-white shadow-md mb-5" #header>
+      <div class="mx-auto px-4 sm:px-6 lg:px-4">
         <div class="flex justify-between items-center h-16">
 
           <!-- Logo -->
@@ -16,44 +16,22 @@
           </div>
 
           <!-- Menu desktop -->
-          <nav class="hidden md:flex space-x-8">
-            <a routerLink="/" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Home</a>
-            <a routerLink="/features" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Features</a>
-            <a routerLink="/pricing" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Pricing</a>
-            <a routerLink="/about" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">About</a>
+          <nav class="hidden md:flex">
+            <a routerLink="/diego-martins" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Diego Martins</a>
+            <a routerLink="/sobre" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Sobre o App</a>
+            <a routerLink="/" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Início</a>
           </nav>
-
-          <!-- Botão ação desktop -->
-          <div class="hidden md:flex items-center">
-            <button pButton type="button" label="Login" class="p-button-sm p-button-outlined p-button-indigo"></button>
-          </div>
 
           <!-- Menu hamburguer mobile -->
           <div class="flex md:hidden">
-            <button
-              type="button"
-              aria-label="Toggle menu"
-              class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-indigo-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
-              (click)="toggleMobileMenu()"
-            >
-              <i *ngIf="!mobileMenuOpen" class="fa fa-bars text-xl"></i>
-              <i *ngIf="mobileMenuOpen" class="fa fa-times text-xl"></i>
-            </button>
-          </div>
+            <p-menu #menu [model]="items" [popup]="true"[appendTo]="header" />
+            <p-button #menuBtn
+              icon="fa fa-bars"
+              (click)="menu.toggle($event)"
+              styleClass="custom-menu"
+              [style]="{ 'background-color': '#6C8CD5', 'border': '1px solid #6C8CD5' }"/>
+            </div>
         </div>
-      </div>
-
-      <!-- Menu mobile -->
-      <div
-        *ngIf="mobileMenuOpen"
-        class="md:hidden px-2 pt-2 pb-3 space-y-1 bg-white shadow-md"
-      >
-        <a routerLink="/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-indigo-600">Home</a>
-        <a routerLink="/features" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-indigo-600">Features</a>
-        <a routerLink="/pricing" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-indigo-600">Pricing</a>
-        <a routerLink="/about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-indigo-600">About</a>
-
-        <button pButton type="button" label="Login" class="w-full p-button-sm p-button-outlined p-button-indigo"></button>
       </div>
     </header>
 
