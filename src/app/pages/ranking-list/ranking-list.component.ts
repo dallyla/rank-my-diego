@@ -5,6 +5,7 @@ import { SpotifyService } from '../../services/spotify.service';
 import { CommonModule } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { Button } from "primeng/button";
+import { LoadingBarService } from '../../services/progress-bar.service';
 
 
 @Component({
@@ -23,7 +24,8 @@ export class RankingListComponent implements OnInit {
 
   constructor(
     private spotify: SpotifyService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private loadingBarService: LoadingBarService
   ) {}
 
   ngOnInit() {
@@ -50,6 +52,7 @@ export class RankingListComponent implements OnInit {
     });
 
     this.loading = true;
+    this.loadingBarService.show();
     this.spotify.getAllTracksWithInfoFromArtist('2UufgQQgpWU5q0qBflqUeP').subscribe({
       next: (tracks: any) => {
 
@@ -65,11 +68,13 @@ export class RankingListComponent implements OnInit {
             };
             this.songsList.push(obj);
           });
-          this.loading = false;
         }
+        this.loading = false;
+        this.loadingBarService.hide();
       },
       error: err => {
         this.loading = false;
+        this.loadingBarService.hide();
         this.messageService.add({
           severity: 'error',
           summary: `${err.status} - Ixi! Erro ao buscar músicas.`,

@@ -4,14 +4,14 @@
       <img class="brand-logo" src="/assets/logo.svg" alt="logo" aria-hidden="true" />
     </header> -->
 
-    <header class="bg-white shadow-md mb-5" #header>
+    <header class="bg-white shadow-md " #header>
       <div class="mx-auto px-4 sm:px-6 lg:px-4">
         <div class="flex justify-between items-center h-16">
 
           <!-- Logo -->
           <div class="flex-shrink-0 flex items-center">
             <a routerLink="/" class="text-xl font-bold text-indigo-600 hover:text-indigo-800">
-              Rank My Diego
+              Rank My Diego 🏆
             </a>
           </div>
 
@@ -29,15 +29,20 @@
               icon="fa fa-bars"
               (click)="menu.toggle($event)"
               styleClass="custom-menu"
-              [style]="{ 'background-color': '#6C8CD5', 'border': '1px solid #6C8CD5' }"/>
+              [style]="{ 'background-color': '#7D5FFF', 'border': '1px solid #7D5FFF' }"/>
             </div>
         </div>
       </div>
     </header>
+    <p-progressbar *ngIf="visible$ | async" mode="indeterminate" [style]="{ 'height': '3px'}" />
 
   </a>
   <section class="content p-2">
     <p-toast position="center"></p-toast>
     <router-outlet></router-outlet>
   </section>
+  <footer class="flex justify-center items-center gap-1 footer">
+    <i class="fa fa-envelope" style="color: #7D5FFF"></i>
+    <a href="mailto:dallyla_@outlook.com" style="color: #7D5FFF">devlyla™ {{ year}}</a>
+  </footer>
 </main>

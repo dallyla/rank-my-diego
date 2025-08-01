@@ -6,11 +6,14 @@ import { PrimeNG } from 'primeng/config';
 import { ToastModule } from 'primeng/toast';
 import { MenuModule } from 'primeng/menu';
 import { ButtonModule } from 'primeng/button';
+import { ProgressBar } from 'primeng/progressbar';
+import { LoadingBarService } from './services/progress-bar.service';
+import { Observable } from 'rxjs';
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterModule, CommonModule, ToastModule, MenuModule, ButtonModule],
+  imports: [RouterOutlet, RouterModule, CommonModule, ToastModule, MenuModule, ButtonModule, ProgressBar],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -19,11 +22,17 @@ export class AppComponent {
   value = ''
   mobileMenuOpen = false;
   items: MenuItem[] | undefined;
+  year = new Date().getFullYear();
+  visible$!: Observable<boolean>; // ou BehaviorSubject<boolean>
 
   constructor(
     private primeng: PrimeNG,
-    private messageService: MessageService
-  ) {}
+    private messageService: MessageService,
+    private loadingBarService: LoadingBarService
+  ) {
+    this.visible$ = this.loadingBarService.visible$;
+  }
+
 
   ngOnInit() {
      this.primeng.ripple.set(true);

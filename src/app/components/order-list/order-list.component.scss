@@ -45,7 +45,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    gap: 4rem;
 
     padding: 1rem; /* aplica padding nos 4 lados */
     padding-left: 1.25rem; /* garante espaçamento extra na esquerda */
@@ -71,11 +71,11 @@
   }
 
   .play-btn {
-    color: #6C8CD5
+    color: #7D5FFF
   }
 
   .container-principal {
-    background-color: #ffff9f;
+    background-color: #EAE4FF;
     border-radius: 10px;
     padding: 10px;
   }

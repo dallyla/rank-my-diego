@@ -6,6 +6,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { ButtonModule } from 'primeng/button';
 import html2canvas from 'html2canvas';
 import { ImageService } from '../../services/image.service';
+import { LoadingBarService } from '../../services/progress-bar.service';
 
 
 @Component({
@@ -29,7 +30,9 @@ export class OrderListComponent {
 
   constructor(
     private sanitizer: DomSanitizer,
-    private imageService: ImageService
+    private imageService: ImageService,
+    private loadingBarService: LoadingBarService
+
   ) {}
 
   emitPlayerClick(item: any, action: 'play' | 'close') {
@@ -71,7 +74,7 @@ export class OrderListComponent {
   async capturarImagem() {
     const container = document.getElementById('ranking-compartilhavel');
     if (!container) return;
-
+    this.loadingBarService.show();
     // Aguarda o carregamento de todas as imagens
     const imagens = Array.from(container.getElementsByTagName('img'));
     await Promise.all(imagens.map(img => {
@@ -88,9 +91,11 @@ export class OrderListComponent {
     html2canvas(container, {
       useCORS: true,      // Permite baixar imagens externas
       allowTaint: false,  // Bloqueia imagens "sujas" com cookies
-      scale: 2,           // Aumenta qualidade
-      backgroundColor: '#ffff9f'
+      scale: 3,           // Aumenta qualidade
+      backgroundColor: '#f5f3ff'
     }).then(canvas => {
+      this.loadingBarService.hide ();
+
       container.classList.remove('capture-mode');
 
       const link = document.createElement('a');
@@ -100,8 +105,8 @@ export class OrderListComponent {
     });
   }
 
-  compartilharNoTwittwer() {
-    this.imageService.capturarEnviarECompartilhar('ranking-compartilhavel', this.textoTweet);
+  compartilharNasRedes(rede: string) {
+    this.imageService.capturarEnviarECompartilhar('ranking-compartilhavel', this.textoTweet, rede);
   }
 
 }

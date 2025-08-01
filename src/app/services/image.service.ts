@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import html2canvas from 'html2canvas';
 import { MessageService } from 'primeng/api';
 import { Observable, throwError, from, switchMap, of } from 'rxjs';
+import { LoadingBarService } from './progress-bar.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,9 @@ export class ImageService {
 
   constructor(
     private http: HttpClient,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private loadingBarService: LoadingBarService
+
   ) {}
 
   capturarImagemComoBlob(elementId: string): Observable<Blob> {
@@ -81,12 +84,29 @@ export class ImageService {
     window.open(tweetUrl, '_blank');
   }
 
-  capturarEnviarECompartilhar(elementId: string, textoTweet: string) {
+  compartilharNoWhatsapp(publicId: string, texto: string) {
+    const imageUrl = `${this.vercelPreviewBaseUrl}/${encodeURIComponent(publicId)}`;
+    const shareText = encodeURIComponent(texto);
+    const whatsappLink = `https://wa.me/?text=${shareText}%20${encodeURIComponent(imageUrl)}`;
+    window.open(whatsappLink, '_blank');
+  }
+
+  capturarEnviarECompartilhar(elementId: string, textoTweet: string, rede: string) {
+    this.loadingBarService.show();
+
     this.capturarImagemComoBlob(elementId).subscribe({
       next: blob => {
         this.enviarImagemParaCloudinary(blob).subscribe({
-          next: publicId => this.compartilharNoTwitter(publicId, textoTweet),
+          next: publicId => {
+            this.loadingBarService.hide();
+            if (rede === 'twitter') {
+              this.compartilharNoTwitter(publicId, textoTweet)
+              return
+            }
+            this.compartilharNoWhatsapp(publicId, textoTweet)
+          },
           error: (err) => {
+            this.loadingBarService.hide();
             console.error('Erro no upload da imagem:', err);
             this.messageService.add({
               severity: 'error',
@@ -97,6 +117,7 @@ export class ImageService {
         });
       },
       error: (err) => {
+        this.loadingBarService.hide();
         console.error('Erro ao capturar imagem:', err);
         this.messageService.add({
           severity: 'error',
