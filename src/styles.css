@@ -21,6 +21,7 @@ html, body {
   min-height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* Fonte cinza para as mensagens */
