@@ -1,3 +1,22 @@
+
+@media screen and (max-width: 365px) {
+  .safe-padding-samsung {
+    width: 98%;
+  }
+  .truncate {
+    max-width: 100px;
+  }
+  .item {
+    font-size: 14px;
+  }
+  .medals {
+    font-size: 12px;
+  }
+  .custom-gap {
+    gap: calc(var(--spacing) * 2)
+  }
+}
+
 ::ng-deep .no-scroll {
   max-height: none !important;
   height: auto !important;
@@ -106,6 +125,8 @@
     width: 700px;
     background-color: #6C8CD5;
     border-radius: 0px !important;
+    padding-left: 0px;
+    padding-right: 0px;
   }
   .titulo {
     padding-bottom: 20px;
