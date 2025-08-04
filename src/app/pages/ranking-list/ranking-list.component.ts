@@ -1,3 +1,4 @@
+import { SONG_LIST } from './ranking.model';
 import { Component, OnInit } from '@angular/core';
 import { OrderListComponent } from '../../components/order-list/order-list.component';
 import { CardModule } from 'primeng/card';
@@ -16,7 +17,7 @@ import { LoadingBarService } from '../../services/progress-bar.service';
 })
 export class RankingListComponent implements OnInit {
   showPlayer = false;
-  songsList!: any[]
+  songsList = SONG_LIST;
   loading = false;
 
   artist: any;
@@ -29,7 +30,7 @@ export class RankingListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-   this.getAllTracks();
+  //  this.getAllTracks();
   }
 
   showSpotifyPlayer(event: any) {
@@ -37,20 +38,6 @@ export class RankingListComponent implements OnInit {
   }
 
   getAllTracks(){
-    this.spotify.getArtist(this.artistId).subscribe({
-      next: data => {
-        this.artist = data;
-      },
-      error: err => {
-        this.messageService.add({
-          severity: 'error',
-          summary: `${err.status} - Aff :( Erro ao buscar artista`,
-          detail: 'Contate a adm.',
-          life: 5000
-        });
-      }
-    });
-
     this.loading = true;
     this.loadingBarService.show();
     this.spotify.getAllTracksWithInfoFromArtist('2UufgQQgpWU5q0qBflqUeP').subscribe({
@@ -69,6 +56,8 @@ export class RankingListComponent implements OnInit {
             this.songsList.push(obj);
           });
         }
+        console.log(this.songsList);
+
         this.loading = false;
         this.loadingBarService.hide();
       },
@@ -86,4 +75,20 @@ export class RankingListComponent implements OnInit {
 
   }
 
+
+  private getArtist() {
+    this.spotify.getArtist(this.artistId).subscribe({
+      next: data => {
+        this.artist = data;
+      },
+      error: err => {
+        this.messageService.add({
+          severity: 'error',
+          summary: `${err.status} - Aff :( Erro ao buscar artista`,
+          detail: 'Contate a adm.',
+          life: 5000
+        });
+      }
+    });
+  }
 }
