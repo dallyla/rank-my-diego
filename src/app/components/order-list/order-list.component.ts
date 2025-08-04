@@ -26,7 +26,7 @@ export class OrderListComponent {
   itemClickedId!: string | number;
   iframeLoading = false;
   iframeUrls: { [albumId: string]: SafeResourceUrl } = {};
-  textoTweet = "🎧 Meu Ranking das músicas da Diego Martins já tá pronto! 🔥✨ #RankMyDiego #DiegoMartins";
+  textoTweet = "🎧 Meu Ranking das músicas da Diego Martins já tá pronto! 🔥✨ www.rankmydiego.com.br #RankMyDiego #DiegoMartins\n";
 
   constructor(
     private sanitizer: DomSanitizer,
