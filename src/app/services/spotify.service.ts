@@ -2,9 +2,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import { environment } from '../../environments/environment.prod';
+
 
 @Injectable({ providedIn: 'root' })
-export class SpotifyService {
+ export class SpotifyService {
   private proxyUrl = 'https://rank-my-diego-backend.onrender.com';
 
   token!: any;
@@ -90,76 +92,15 @@ export class SpotifyService {
     );
   }
 
-  // getAllTracksWithInfoFromArtist(artistId: string) {
-  //   // ✅ Cache para evitar múltiplas chamadas
-  //   if ((this as any)._trackCache?.[artistId]) {
-  //     return of((this as any)._trackCache[artistId]);
-  //   }
+  private apiUrl = 'https://rank-my-diego.vercel.app/api/cache-artist-tracks';
+  private secret =  environment.apiSecret; // coloque o segredo correto aqui ou carregue de config
 
-  //   return this.getToken().pipe(
-  //     switchMap(token => {
-  //       const headers = new HttpHeaders({
-  //         Authorization: `Bearer ${token.access_token}`
-  //       });
-
-  //       // 1. Buscar os álbuns do artista
-  //       return this.http.get<any>(`https://api.spotify.com/v1/artists/${artistId}/albums`, {
-  //         headers,
-  //         params: {
-  //           include_groups: 'album,single',
-  //           market: 'BR',
-  //           limit: 50
-  //         }
-  //       }).pipe(
-  //         switchMap((albumsRes: any) => {
-  //           const albumIds: string[] = albumsRes.items.map((album: any) => album.id);
-
-  //           // 2. Dividir em grupos de até 20 álbuns por chamada
-  //           const batchedAlbumIds: string[][] = [];
-  //           for (let i = 0; i < albumIds.length; i += 20) {
-  //             batchedAlbumIds.push(albumIds.slice(i, i + 20));
-  //           }
-
-  //           const albumDetailCalls = batchedAlbumIds.map(group =>
-  //             this.http.get<any>(`https://api.spotify.com/v1/albums`, {
-  //               headers,
-  //               params: { ids: group.join(',') }
-  //             })
-  //           );
-
-  //           return forkJoin(albumDetailCalls).pipe(
-  //             map((albumGroups: any[]) => {
-  //               // 3. Unir todas as faixas de todos os álbuns
-  //               const allTracks = albumGroups.flatMap(group =>
-  //                 group.albums.flatMap((album: any) =>
-  //                   album.tracks.items.map((track: any) => ({
-  //                     id: track.id,
-  //                     name: track.name,
-  //                     preview_url: track.preview_url,
-  //                     duration_ms: track.duration_ms,
-  //                     album: {
-  //                       id: album.id,
-  //                       name: album.name,
-  //                       images: album.images,
-  //                       release_date: album.release_date
-  //                     },
-  //                     artists: track.artists
-  //                   }))
-  //                 )
-  //               );
-
-  //               // ✅ Armazena em cache simples na instância
-  //               (this as any)._trackCache = (this as any)._trackCache || {};
-  //               (this as any)._trackCache[artistId] = allTracks;
-
-  //               return allTracks;
-  //             })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   );
-  // }
-
-
+  getArtistWithTracks() {
+    return this.http.get<{ lastUpdated: number; data: any }>(
+      `${this.apiUrl}?secret=${this.secret}`
+    ).pipe(
+      map(res => res.data)
+    );
+  }
 }
+

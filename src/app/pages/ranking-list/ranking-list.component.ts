@@ -17,11 +17,11 @@ import { LoadingBarService } from '../../services/progress-bar.service';
 })
 export class RankingListComponent implements OnInit {
   showPlayer = false;
-  songsList = SONG_LIST;
+  songsList: any[] = [];
   loading = false;
 
   artist: any;
-  artistId = '2UufgQQgpWU5q0qBflqUeP?si=CKMzgKyIRlOs8NygciqivQ';
+  artistId = '2UufgQQgpWU5q0qBflqUeP';
 
   constructor(
     private spotify: SpotifyService,
@@ -30,7 +30,12 @@ export class RankingListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-  //  this.getAllTracks();
+    this.getAllTracks()
+    /*  this.spotify.getArtistWithTracks().subscribe(data => {
+      console.log('Artista:', data.artist);
+      console.log('Álbuns:', data.albums);
+      console.log('Faixas:', data.tracks);
+    }); */
   }
 
   showSpotifyPlayer(event: any) {
@@ -40,12 +45,13 @@ export class RankingListComponent implements OnInit {
   getAllTracks(){
     this.loading = true;
     this.loadingBarService.show();
-    this.spotify.getAllTracksWithInfoFromArtist('2UufgQQgpWU5q0qBflqUeP').subscribe({
-      next: (tracks: any) => {
+     this.spotify.getArtistWithTracks().subscribe({
+      next: (data: any) => {
 
         this.songsList = [];
 
-        if (tracks.length) {
+        if (data.tracks.length) {
+          const tracks = data.tracks
           tracks.forEach((item: any) => {
             const obj = {
               id: item.id,
@@ -77,7 +83,7 @@ export class RankingListComponent implements OnInit {
 
 
   private getArtist() {
-    this.spotify.getArtist(this.artistId).subscribe({
+   /*  this.spotify.getArtist(this.artistId).subscribe({
       next: data => {
         this.artist = data;
       },
@@ -89,6 +95,6 @@ export class RankingListComponent implements OnInit {
           life: 5000
         });
       }
-    });
+    }); */
   }
 }

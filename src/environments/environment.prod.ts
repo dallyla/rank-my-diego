@@ -1,5 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://dev.api.seusite.com',
-  apiKey: ''
+  apiSecret: 'C4ch3s3cr3t'
 };
