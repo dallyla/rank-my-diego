@@ -59,6 +59,9 @@ export class RankingListComponent implements OnInit {
               name: item.name,
               albumId: item.album.id
             };
+            if(obj.name === 'De Quinta A Domingo') {
+              obj.name = 'De Qui A Dom'
+            }
             this.songsList.push(obj);
           });
         } else {

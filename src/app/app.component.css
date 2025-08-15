@@ -37,19 +37,19 @@ body, html {
   white-space: nowrap;
 }
 
-.banner-novidade .item {
+.banner-novidade .item-banner {
   display: inline-flex;
   align-items: center;
   /* padding-right: 2rem; */
 }
 
-.item {
+.item-banner {
   border: none;
   border-radius: 15px;
 
 }
 
-.item:active {
+.item-banner:active {
   background-color: transparent !important;
 }
 
