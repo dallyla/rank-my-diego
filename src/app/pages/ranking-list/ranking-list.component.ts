@@ -61,6 +61,8 @@ export class RankingListComponent implements OnInit {
             };
             this.songsList.push(obj);
           });
+        } else {
+          this.songsList = SONG_LIST;
         }
         console.log(this.songsList);
 

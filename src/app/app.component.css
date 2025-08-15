@@ -13,3 +13,44 @@ body, html {
 }
 
 
+.banner-novidade img {
+  max-width: 47px;   /* tamanho máximo no desktop */
+  width: 100%;       /* ocupa o espaço disponível proporcionalmente */
+  height: auto;      /* mantém proporção */
+  border-radius: 10px;
+  display: block;
+  object-fit: contain; /* evita distorção */
+  margin: 0 auto;    /* centraliza */
+}
+
+
+.banner-novidade {
+  position: relative;
+  overflow: hidden; /* Esconde o que sai da área visível */
+  width: 300px; /* Ajuste para a largura que quiser */
+  background-color: transparent;
+  justify-content: center;
+}
+
+.banner-novidade .scroll-content {
+  display: flex;
+  white-space: nowrap;
+}
+
+.banner-novidade .item {
+  display: inline-flex;
+  align-items: center;
+  /* padding-right: 2rem; */
+}
+
+.item {
+  border: none;
+  border-radius: 15px;
+
+}
+
+.item:active {
+  background-color: transparent !important;
+}
+
+
