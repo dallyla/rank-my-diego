@@ -7,17 +7,19 @@ import { CommonModule } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { Button } from "primeng/button";
 import { LoadingBarService } from '../../services/progress-bar.service';
+import { TabsModule } from 'primeng/tabs';
 
 
 @Component({
   selector: 'app-ranking-list',
   templateUrl: './ranking-list.component.html',
   styleUrls: ['./ranking-list.component.scss'],
-  imports: [OrderListComponent, CardModule, CommonModule]
+  imports: [OrderListComponent, CardModule, CommonModule, TabsModule]
 })
 export class RankingListComponent implements OnInit {
   showPlayer = false;
   songsList: any[] = [];
+  tantoSongsList: any[] = [];
   loading = false;
 
   artist: any;
@@ -48,26 +50,8 @@ export class RankingListComponent implements OnInit {
      this.spotify.getArtistWithTracks().subscribe({
       next: (data: any) => {
 
-        this.songsList = [];
-
-        if (data.tracks.length) {
-          const tracks = data.tracks
-          tracks.forEach((item: any) => {
-            const obj = {
-              id: item.id,
-              icon: item.album.images[1].url,
-              name: item.name,
-              albumId: item.album.id
-            };
-            if(obj.name === 'De Quinta A Domingo') {
-              obj.name = 'De Qui A Dom'
-            }
-            this.songsList.push(obj);
-          });
-        } else {
-          this.songsList = SONG_LIST;
-        }
-        console.log(this.songsList);
+        this.buildTantoList(data);
+        this.buildGeneralList(data);
 
         this.loading = false;
         this.loadingBarService.hide();
@@ -86,6 +70,41 @@ export class RankingListComponent implements OnInit {
 
   }
 
+
+  private buildTantoList(data: any) {
+    const tanto = data.albums.filter((album: any) => { album.name.toUpperCase() === 'TANTO'; });
+    this.tantoSongsList = tanto.length ? tanto[0].tracks.map((item: any) => {
+      return {
+        id: item.id,
+        icon: item.images[1].url,
+        name: item.name,
+        albumId: item.id
+      };
+    }) : SONG_LIST;
+  }
+
+  private buildGeneralList(data: any) {
+    this.songsList = [];
+
+    if (data.tracks.length) {
+      const tracks = data.tracks;
+      tracks.forEach((item: any) => {
+        const obj = {
+          id: item.id,
+          icon: item.album.images[1].url,
+          name: item.name,
+          albumId: item.album.id
+        };
+        if (obj.name === 'De Quinta A Domingo') {
+          obj.name = 'De Qui A Dom';
+        }
+        this.songsList.push(obj);
+      });
+    } else {
+      this.songsList = SONG_LIST;
+    }
+    console.log(this.songsList);
+  }
 
   private getArtist() {
    /*  this.spotify.getArtist(this.artistId).subscribe({

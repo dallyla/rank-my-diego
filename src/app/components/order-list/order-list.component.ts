@@ -20,6 +20,8 @@ export class OrderListComponent {
   @Output() emitNewOrder = new EventEmitter<any[]>();
   @Output() emitItemClick = new EventEmitter<any>();
   @Input() loading = false;
+  @Input() titulo = '';
+  @Input() subtitulo = '';
   fabOpen = false;
 
   showPlayer = false;
@@ -62,6 +64,7 @@ export class OrderListComponent {
 
   onDrop(event: CdkDragDrop<any[]>) {
     moveItemInArray(this.items, event.previousIndex, event.currentIndex);
+    this.items = [...this.items]; // Garante que o Angular detecte a mudança
     this.emitNewOrder.emit(this.items);
   }
 

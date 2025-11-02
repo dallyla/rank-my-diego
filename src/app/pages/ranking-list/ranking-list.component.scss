@@ -107,6 +107,15 @@
     max-height: none !important;
   }
 
+  .p-tab-active {
+    background: transparent;
+    border-color: #5f40e0;
+    color: #5f40e0;
+  }
+  .p-tablist-active-bar {
+    background: #5f40e0;
+  }
+
 }
 
 .list-num {

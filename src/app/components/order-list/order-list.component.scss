@@ -121,6 +121,17 @@
     overflow: visible !important;
   }
 
+  .hideItem {
+    display: none !important;
+  }
+
+  .item {
+    border: none !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+    padding: 0px !important;
+  }
+
   .container-principal {
     width: 700px;
     background-color: #6C8CD5;

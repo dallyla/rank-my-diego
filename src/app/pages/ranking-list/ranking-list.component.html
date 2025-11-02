@@ -3,11 +3,33 @@
     <div class="flex justify-center space-x-4">
        <!-- NOVO WRAPPER FLEXÍVEL -->
       <div class="w-full overflow-visible safe-padding-samsung">
-        <app-order-list
-          [items]="songsList"
-          [loading]="loading"
-          (emitItemClick)="showSpotifyPlayer($event)">
-        </app-order-list>
+        <p-tabs value="1">
+          <p-tablist>
+            <p-tab value="0">Ranking Geral</p-tab>
+            <p-tab value="1">Ranking TANTO</p-tab>
+          </p-tablist>
+          <p-tabpanels>
+            <p-tabpanel value="0">
+              <app-order-list
+                [titulo]="'rankmydiego'"
+                [subtitulo]="'Meu top 10 músicas da Diego Martins'"
+                [items]="songsList"
+                [loading]="loading"
+                (emitItemClick)="showSpotifyPlayer($event)">
+              </app-order-list>
+            </p-tabpanel>
+            <p-tabpanel value="1">
+              <app-order-list
+                [titulo]="'rankmydiego'"
+                [subtitulo]="'Meu top músicas do álbum TANTO'"
+                [items]="tantoSongsList"
+                [loading]="loading"
+                (emitItemClick)="showSpotifyPlayer($event)">
+              </app-order-list>
+            </p-tabpanel>
+        </p-tabpanels>
+        </p-tabs>
+
       </div>
     </div>
   </div>

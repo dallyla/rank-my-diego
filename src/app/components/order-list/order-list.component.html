@@ -65,68 +65,72 @@
 <div cdkDropList *ngIf="!loading"
      [cdkDropListData]="items"
      (cdkDropListDropped)="onDrop($event)"
-     class="flex flex-col gap-4 container-principal"  id="ranking-compartilhavel"
+     class="flex flex-col gap-4"  id="ranking-compartilhavel"
 >
   <div class="my-1 titulo">
-    <p class="text-center text-2xl font-bold" style="color: #5f40e0; border: 5f40e0;">rankmydiego.com.br</p>
-    <p class="text-center text-sm" style="color: #364153; font-size: 12px;">Meu top das músicas da Diego Martins</p>
+    <p class="text-center  font-bold" style="color: #5f40e0; border: 5f40e0;">{{titulo}}</p>
+    <p class="text-center text-sm" style="color: #364153; font-size: 12px;">{{subtitulo}}</p>
   </div>
   <div *ngFor="let item of items; let index = index" cdkDragHandle
        cdkDrag
-       class="rounded-md p-4 shadow-md bg-white item"
+       [ngClass]="index > 9 ? 'hideItem rounded-md p-4 shadow-md bg-white item' : 'rounded-md p-4 shadow-md bg-white item'"
+
   >
-    <!-- Header -->
-    <div class="flex justify-between gap-3 custom-gap">
 
-      <div class="w-1/12 text-center font-semibold">{{ index + 1 }}º</div>
+    <div [ngClass]="index > 9 ? 'hideItem' : ''">
+      <!-- Header -->
+      <div class="flex justify-between gap-3 custom-gap">
 
-      <div class="flex-1 flex  gap-3">
-        <div class="dash-logo shrink-0">
-          <img class="img-logo object-cover" [src]="item.icon" alt="logo" />
+        <div *ngIf="index <= 9" class="w-1/12 text-center font-semibold">{{ index + 1 }}º</div>
+
+        <div class="flex-1 flex  gap-3">
+          <div class="dash-logo shrink-0">
+            <img class="img-logo object-cover" [src]="item.icon" alt="logo" />
+          </div>
+          <span class="truncate min-w-[100px] block">{{ item.name }}</span>
         </div>
-        <span class="truncate min-w-[100px] block">{{ item.name }}</span>
+
+        <div class="medals" *ngIf="index === 0">
+          🥇
+        </div>
+        <div class="medals" *ngIf="index === 1">
+          🥈
+        </div>
+        <div class="medals" *ngIf="index === 2">
+          🥉
+        </div>
+
+        <div class="shrink-0 w-8 text-right no-print">
+          <ng-container *ngIf="showPlayer && itemClickedId === item.id; else play">
+            <i class="fas fa-circle-xmark text-red-400 text-2xl cursor-pointer"
+              (click)="emitPlayerClick(item, 'close')"></i>
+          </ng-container>
+          <ng-template #play>
+            <i class="fas fa-circle-play play-btn text-2xl cursor-pointer"
+              [class.opacity-50]="fabOpen"
+              [class.cursor-not-allowed]="fabOpen"
+              [style.pointer-events]="fabOpen ? 'none' : 'auto'"
+              (click)="!fabOpen && emitPlayerClick(item, 'play')">
+              </i>
+          </ng-template>
+        </div>
       </div>
 
-      <div class="medals" *ngIf="index === 0">
-        🥇
-      </div>
-      <div class="medals" *ngIf="index === 1">
-        🥈
-      </div>
-      <div class="medals" *ngIf="index === 2">
-        🥉
-      </div>
 
-      <div class="shrink-0 w-8 text-right no-print">
-        <ng-container *ngIf="showPlayer && itemClickedId === item.id; else play">
-          <i class="fas fa-circle-xmark text-red-400 text-2xl cursor-pointer"
-             (click)="emitPlayerClick(item, 'close')"></i>
-        </ng-container>
-        <ng-template #play>
-          <i class="fas fa-circle-play play-btn text-2xl cursor-pointer"
-            [class.opacity-50]="fabOpen"
-            [class.cursor-not-allowed]="fabOpen"
-            [style.pointer-events]="fabOpen ? 'none' : 'auto'"
-            (click)="!fabOpen && emitPlayerClick(item, 'play')">
-            </i>
-        </ng-template>
+      <!-- Player -->
+      <div *ngIf="showPlayer && itemClickedId === item.id" class="mt-2">
+        <p-skeleton *ngIf="iframeLoading" width="100%" height="200px" [style]="{ 'border-radius': '12px' }"></p-skeleton>
+        <iframe
+          [src]="getSpotifyEmbedUrl(item.albumId)"
+          width="100%"
+          height="200"
+          frameborder="0"
+          style="border-radius:12px"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+          (load)="onIframeLoad()"
+        ></iframe>
       </div>
-    </div>
-
-
-    <!-- Player -->
-    <div *ngIf="showPlayer && itemClickedId === item.id" class="mt-2">
-      <p-skeleton *ngIf="iframeLoading" width="100%" height="200px" [style]="{ 'border-radius': '12px' }"></p-skeleton>
-      <iframe
-        [src]="getSpotifyEmbedUrl(item.albumId)"
-        width="100%"
-        height="200"
-        frameborder="0"
-        style="border-radius:12px"
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        loading="lazy"
-        (load)="onIframeLoad()"
-      ></iframe>
     </div>
   </div>
 </div>
