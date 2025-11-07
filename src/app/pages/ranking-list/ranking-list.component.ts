@@ -97,7 +97,7 @@ export class RankingListComponent implements OnInit {
         id: item?.id,
         icon: tanto[0].images[1].url,
         name: item?.name,
-        albumId: item?.id
+        albumId: tanto[0].id
       };
     }) : SONG_LIST;
   }
