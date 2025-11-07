@@ -72,13 +72,32 @@ export class RankingListComponent implements OnInit {
 
 
   private buildTantoList(data: any) {
-    const tanto = data.albums.filter((album: any) => { album.name.toUpperCase() === 'TANTO'; });
-    this.tantoSongsList = tanto.length ? tanto[0].tracks.map((item: any) => {
+    console.log(data.albums);
+
+    const tanto = data.albums.filter((album: any) => {
+      return album.name === 'TANTO';
+    });
+    console.log(tanto);
+
+   this.tantoSongsList = tanto.length ? tanto[0].tracks.map((item: any) => {
+
+      if (item.name === 'Teu Namorado, Meu Amor') {
+        item.name = 'Teu Namorado';
+      }
+      if (item.name === 'Rubrica 1 (Interlude)') {
+        item.name = 'Rubrica 1';
+      }
+      if (item.name === 'Rubrica 2 (Interlude)') {
+        item.name = 'Rubrica 2';
+      }
+      if (item.name === 'De Quinta A Domingo') {
+        item.name = 'De Qui A Dom';
+      }
       return {
-        id: item.id,
-        icon: item.images[1].url,
-        name: item.name,
-        albumId: item.id
+        id: item?.id,
+        icon: tanto[0].images[1].url,
+        name: item?.name,
+        albumId: item?.id
       };
     }) : SONG_LIST;
   }
@@ -97,6 +116,15 @@ export class RankingListComponent implements OnInit {
         };
         if (obj.name === 'De Quinta A Domingo') {
           obj.name = 'De Qui A Dom';
+        }
+        if (obj.name === 'Teu Namorado, Meu Amor') {
+          obj.name = 'Teu Namorado';
+        }
+        if (obj.name === 'Rubrica 1 (Interlude)') {
+          obj.name = 'Rubrica 1';
+        }
+        if (obj.name === 'Rubrica 2 (Interlude)') {
+          obj.name = 'Rubrica 2';
         }
         this.songsList.push(obj);
       });
